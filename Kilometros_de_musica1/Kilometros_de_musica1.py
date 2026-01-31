@@ -32,7 +32,7 @@ def index():
                         Los_90(),
                         Conciertos(),
                         Concierto_iconos(),
-                        BMW(),
+                        #BMW(),
                         
                         
 
@@ -43,4 +43,4 @@ def index():
 
 
 app = rx.App()
-app.add_page(index)
+app.add_page(index, title="El viaje de tu vida")
