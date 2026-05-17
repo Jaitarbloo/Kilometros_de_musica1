@@ -1,165 +1,158 @@
 import reflex as rx
+import math
 
-class State(rx.State):
-    show_video: bool = False
-    current_video: str = ""
 
-    def open_video(self, event):
-        self.current_video = event.get("target", {}).get("dataset", {}).get("id", "")
-        self.show_video = True
-
-    def close_video(self):
-        self.show_video = False
-
-# Lista de videos
 VIDEOS = [
-    {"id": ""},
-    {"id": "", "title": "Video 2"},
-    {"id": "9bZkp7q19f0", "title": "Video 3"},
-    {"id": "kJQP7kiw5Fk", "title": "Video 4"},
-    {"id": "RgKAFK5djSk", "title": "Video 5"},
-    {"id": "JGwWNGJdvx8", "title": "Video 6"},
-    {"id": "OPf0YbXqDm0", "title": "Video 7"},
-    {"id": "k2qgadSvNyU", "title": "Video 8"},
-    {"id": "nYh-n7EOtMA", "title": "Video 9"},
-    {"id": "7wtfhZwyrcc", "title": "Video 10"},
+    "https://www.youtube.com/watch?v=SeKszb2SwsM&t=786s",
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "https://www.youtube.com/watch?v=9bZkp7q19f0",
+    "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+    "https://www.youtube.com/watch?v=RgKAFK5djSk",
+    "https://www.youtube.com/watch?v=JGwWNGJdvx8",
+    "https://www.youtube.com/watch?v=OPf0YbXqDm0",
+    "https://www.youtube.com/watch?v=k2qgadSvNyU",
+    "https://www.youtube.com/watch?v=nYh-n7EOtMA",
+    "https://www.youtube.com/watch?v=7wtfhZwyrcc",
 ]
 
-def Circulos():
-    road_coordinates = [
-        (10, 60), (10, 90), (30, 80), (30, 53),
-        (45, 47), (65, 55), (75, 70), (85, 80),
-        (70, 48), (71, 32),
-    ]
-    
-    n = len(VIDEOS)
-    road_points = road_coordinates * (n // len(road_coordinates) + 1)
-    road_points = road_points[:n]
-    
+
+def video_circle():
+
+    RADIUS_PCT = 40
+    ITEM_SIZE_PCT = 18
+    CENTER_SIZE_PCT = 28
+
     circle_items = []
-    for video, (x_pct, y_pct) in zip(VIDEOS, road_points):
+
+    n = len(VIDEOS)
+
+    for i, video_url in enumerate(VIDEOS):
+
+        angle = 2 * math.pi * i / n
+
+        x_pct = 50 + RADIUS_PCT * math.cos(angle)
+        y_pct = 50 + RADIUS_PCT * math.sin(angle)
+
         circle_items.append(
+
             rx.box(
-                rx.image(
-                    src=f"/video_thumbs/{video['id']}.jpg",
+
+                rx.video(
+                    url=video_url,
                     width="100%",
                     height="100%",
-                    border_radius="50%",
-                    object_fit="cover",
-                    border="0.2rem solid white",
-                    cursor="pointer",
-                    on_click=State.open_video,
-                    data_id=video['id'],
-                    box_shadow="0 4px 8px rgba(0,0,0,0.3)",
-                    _hover={
-                        "transform": "scale(1.1)",
-                        "transition": "transform 0.2s",
-                        "box_shadow": "0 6px 12px rgba(0,0,0,0.4)",
-                        "border": "0.2rem solid gold"
-                    },
+                    controls=True,
                 ),
+
                 position="absolute",
                 left=f"{x_pct}%",
                 top=f"{y_pct}%",
-                width="8%",
-                height="8%",
+                width=f"{ITEM_SIZE_PCT}%",
+                height=f"{ITEM_SIZE_PCT}%",
+
                 transform="translate(-50%, -50%)",
-                z_index="10",
-                transition="all 0.3s ease",
+
+                border_radius="50%",
+                overflow="hidden",
+
+                border="0.2rem solid white",
+
+                bg="black",
+
+                _hover={
+                    "transform": "translate(-50%, -50%) scale(1.08)",
+                    "border": "0.2rem solid gold",
+                    "transition": "0.3s",
+                },
             )
         )
 
     return rx.box(
+
         *circle_items,
-        width="100%",
-        height="100vh",
-        position="relative",
-    )
 
-
-def video_youtube():
-    return rx.cond(
-        State.show_video,
+        # VIDEO CENTRAL
         rx.box(
-            rx.vstack(
-                rx.html(
-                    f"""<iframe width="560" height="315"
-                        src="https://www.youtube.com/embed/{State.current_video}?autoplay=1"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>"""
-                ),
-                rx.button(
-                    "Cerrar",
-                    on_click=State.close_video,
-                    bg="red",
-                    color="white",
-                    size="3",
-                    _hover={"bg": "darkred"},
-                ),
-                align="center",
-                spacing="4",
+
+            rx.video(
+                url="https://www.youtube.com/watch?v=SeKszb2SwsM&t=786s",
+                width="100%",
+                height="100%",
+                controls=True,
             ),
-            position="fixed",
-            top="50%",
+
+            position="absolute",
             left="50%",
+            top="50%",
+
+            width=f"{CENTER_SIZE_PCT}%",
+            height=f"{CENTER_SIZE_PCT}%",
+
             transform="translate(-50%, -50%)",
-            bg="rgba(0, 0, 0, 0.9)",
-            padding="20px",
-            border_radius="15px",
-            z_index="1000",
-            box_shadow="lg",
+
+            border_radius="50%",
+            overflow="hidden",
+
+            border="0.25rem solid gold",
+
+            bg="black",
         ),
+
+        position="relative",
+
+        width="min(92vw, 900px)",
+        aspect_ratio="1 / 1",
     )
+
 
 def Los_90():
+
     return rx.box(
-        # Imagen de fondo
+
+        # FONDO NORMAL (YA NO FIJO)
         rx.image(
-            src="/carretera1.jpg",
-            style={
-                "position": "absolute",
-                "width": "100%",
-                "height": "100%",
-                "objectFit": "cover",
-                "zIndex": 0,
-            },
-        ),
-        
-        # Contenedor principal con heading y círculos
-        rx.vstack(
-            # Título con mejor visibilidad
-            rx.heading(
-                "Los 90 - Música y Coches",
-                size="8",
-                color="gold",
-                text_shadow="2px 2px 4px rgba(0,0,0,0.7)",
-                padding="1rem",
-                #background="linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7) 100%)",
-                border_radius="0 0 15px 15px",
-                width="100%",
-                text_align="center",
-                z_index=5,
-            ),
-            
-            # Contenedor para los círculos
-            rx.box(
-                Circulos(),
-                width="100%",
-                height="90vh",
-                position="relative",
-            ),
+            src="/cinco-culo-gordo.jpg",
+
+            position="absolute",
+
+            top="0",
+            left="0",
+
             width="100%",
-            height="100vh",
-            spacing="0",
+            height="100%",
+
+            object_fit="cover",
+
+            z_index="-1",
         ),
-        
-        video_youtube(),
-        width="100%",
-        height="100vh",
+
+        # CONTENIDO CENTRADO
+        rx.center(
+
+            rx.vstack(
+
+                rx.heading(
+                    "Los 90 - Música Retro",
+                    size="8",
+                    color="gold",
+                ),
+
+                video_circle(),
+
+                align="center",
+                spacing="6",
+            ),
+
+            width="100%",
+            min_height="100vh",
+        ),
+
         position="relative",
+        width="100%",
+        min_height="100vh",
         overflow="hidden",
     )
+
 
 app = rx.App()
 app.add_page(Los_90)

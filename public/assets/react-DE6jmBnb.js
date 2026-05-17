@@ -1,4 +1,4 @@
-import{r as e}from"./rolldown-runtime-CkEfyhlV.js";import{t}from"./react-CaDtqrmQ.js";import{t as n}from"./hls-DL2K4nbo.js";import{n as r,t as i}from"./dist-DsA6N6L2.js";var a=e(t(),1),o=(e=>class extends e{static shadowRootOptions={...e.shadowRootOptions};static getTemplateHTML=(t,n={})=>{let{src:r,...i}=t;return`
+import{r as e}from"./rolldown-runtime-CkEfyhlV.js";import{t}from"./react-CaDtqrmQ.js";import{n}from"./hls-BuaJHAUF.js";import{n as r,t as i}from"./dist--C7bw7Gg.js";var a=e(t(),1),o=(e=>class extends e{static shadowRootOptions={...e.shadowRootOptions};static getTemplateHTML=(t,n={})=>{let{src:r,...i}=t;return`
         <script type="application/json" id="config">
           ${JSON.stringify(n.config||{})}
         <\/script>

@@ -8,19 +8,19 @@ def Navbar_trasparente() -> rx.Component:
             rx.vstack(  # Este vstack contiene los enlaces y la línea, y su ancho se ajusta al contenido
                 rx.hstack(
                     rx.link(
-                        rx.text("Desarrollo y Diseño", size="6", color="white"),
+                        rx.text("Nuestras Noches", size="6", color="white"),
                         href="https://reflex.dev",
                     ),
                     rx.link(
-                        rx.text("Frameworks modernos", size="6", color="white"),
+                        rx.text("Amistades y recuerdos", size="6", color="white"),
                         href="https://reflex.dev",
                     ),
                     rx.link(
-                        rx.text("Trato cercano", size="6", color="white"),
+                        rx.text("Vivencias compartidas", size="6", color="white"),
                         href="https://reflex.dev",
                     ),
                     rx.link(
-                        rx.text("Contáctame", size="6", color="white"),
+                        rx.text("Amores de verano", size="6", color="white"),
                         href="https://reflex.dev",
                     ),
                     spacing="9",  # Espaciado entre los enlaces

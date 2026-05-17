@@ -1,40 +1,33 @@
-
 import reflex as rx
-import Modificando_Los_80
-from Video_Inicial import video_inicial
-from Los_80 import Los_80
-from Los_90 import Los_90
-from Conciertos import Conciertos
-#from Prueba_componente1 import navbar
-from BMW_Publicidad import BMW
-from Concierto_iconos import Concierto_iconos
+
+
 from Navbar_trasparente import Navbar_trasparente
 from Navbar import Navbar
-from Modificando_Los_80 import Los_80_Modificado
+from Video_Inicial import video_inicial
+from Cabecera import Cabecera
+#from Los_80 import Los_80
+from Los_90 import Los_90
+from Carretera_de_musica import Carretera_musica
+from Conciertos import Conciertos
+from Concierto_iconos import Concierto_iconos
 
-from rxconfig import config
 
-"""
-class State(rx.State):
-    
-    pass
-"""
 
 def index():
     
     return rx.vstack(
 
-                        #Navbar_trasparente(),
-                        Navbar(),
-                        #video_inicial(),
+                        Navbar_trasparente(),
+                        #Navbar(),
+                        Cabecera(),
                         #Los_80(),
-                        Los_80_Modificado(),
                         Los_90(),
+                        Carretera_musica(),
                         Conciertos(),
                         Concierto_iconos(),
-                        #BMW(),
+                       
                         
-                        
+                    spacing="0",    
 
 
                     )
